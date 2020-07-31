@@ -1,0 +1,46 @@
+[
+   {
+      "equipo" : "rojo",
+      "nivel" : "C",
+      "sueldo" : 50000,
+      "bono" : 25000,
+      "goles_minimos" : 15,
+      "goles" : 10,
+      "sueldo_total" : 75000,
+      "nombre" : "Juan Perez",
+      "sueldo_completo" : null
+   },
+   {
+      "bono" : 30000,
+      "nivel" : "Cuauh",
+      "sueldo" : 100000,
+      "equipo" : "azul",
+      "nombre" : "EL Cuauh",
+      "sueldo_completo" : null,
+      "sueldo_total" : 130000,
+      "goles" : 30,
+      "goles_minimos" : 20
+   },
+   {
+      "goles" : 7,
+      "goles_minimos" : 5,
+      "nombre" : "Cosme Fulanito",
+      "sueldo_completo" : null,
+      "sueldo_total" : 30000,
+      "equipo" : "azul",
+      "bono" : 10000,
+      "nivel" : "A",
+      "sueldo" : 20000
+   },
+   {
+      "equipo" : "rojo",
+      "bono" : 15000,
+      "sueldo" : 30000,
+      "nivel" : "B",
+      "goles" : 9,
+      "goles_minimos" : 10,
+      "sueldo_completo" : null,
+      "nombre" : "El Rulo",
+      "sueldo_total" : 45000
+   }
+]
