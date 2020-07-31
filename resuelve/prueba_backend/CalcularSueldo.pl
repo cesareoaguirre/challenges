@@ -2,6 +2,15 @@
 # # @CesareoAguirre
 # 30 de julio del 2020
 #
+#
+# MODO DE USO
+# Está planteado para poder ejecutarse por otros scripts.
+#
+# Desde la terminal, ejecutar lo siguiente:
+# cat json.txt | perl CalcularSueldo.pl > sueldos.txt
+#
+#
+#
 # PROGRAMACIÓN FUNCIONAL
 #
 # Importar JSON
