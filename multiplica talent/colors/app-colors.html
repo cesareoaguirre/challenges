@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<!--  
+/** @cesareoaguirre
+    reto: Colores
+    reclutador: Multiplica Talent
+*/
+-->
+<html>
+<title>Selección de Colores</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="app-colors.css">
+<script src="app-colors.js"></script>
+
+<style>
+    body {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 14px;
+    }
+</style>
+
+<body>
+    <div id="colores-app">
+        <div class="colores-app-content-wrapper">
+            <div class="titulo">
+                <h1>Colores</h1>
+                <div class="loading"></div>
+            </div>
+            <div class="color-list-wrapper">
+                <div class="modal-wrapper"></div>
+                <ul class="color-list"></ul>
+            </div>
+            <div class="paginador">
+                <span class="prev-button" onclick="prevPage();">Anterior</span>
+                <span class="current-page"></span>
+                <span class="next-button" onclick="nextPage();">Siguiente</span>
+            </div>
+        </div>
+
+        <script>
+            (AppColors)();
+        </script>
+    </div>
+</body>
+</html>
