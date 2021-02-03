@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\multiplica talent",
+    "\\multiplica talent\\colors"
   ],
+  "SelectedNode": "\\multiplica talent\\colors\\app-colors.js",
   "PreviewInSolutionExplorer": false
 }
