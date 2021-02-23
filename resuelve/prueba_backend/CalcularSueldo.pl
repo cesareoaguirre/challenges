@@ -1,7 +1,9 @@
+#!usr/bin/perl
 # Prueba Backend Resuelve versión PERL
 # # @CesareoAguirre
 # 30 de julio del 2020
 #
+
 #
 # MODO DE USO
 # Está planteado para poder ejecutarse por otros scripts.
@@ -22,8 +24,17 @@ use Data::Dumper;
 
 # Nuestra fuente de datos es pasada por STDIN (el .pl puede ser llamado por otro módulo).
 # .
+$input = ( $/ );
+#$input =~ s/^\s+$//;
 $json = JSON->new->allow_nonref;
+print "'$input'\n";
+if ( $input eq ""){
+	print "no se incluyó ningún dato json con los goles de los jugadores\n";
+	exit ;
+}
+
 $json_txt = do { local $/; <> };
+
 $json_obj = decode_json( $json_txt );
 #
 # Los niveles de goles al mes. Aclarar que este es el mejor escenario y pasar un nivel inexistente provocará falla en el script en tiempo de ejecución.
@@ -44,12 +55,12 @@ for my $jugador ( @$json_obj ) {
 	my $bono_total= $bono * $alcance_bono; 
 	my $sueldo_total= $sueldo + $bono;
 	$jugador->{'goles_minimos'}=$goles_minimos;
-	$jugador->{'sueldo_total'}=$sueldo_total;
-	#print "Jugador " . %$jugador{'nombre'} . "\n";
-	#print "nivel: $nivel, goles: $goles / $goles_minimos = $alcance_bono \n";
-	#print "bono: $bono\n";
-	#print "sueldo total $sueldo + $bono_total";
-	#print "-----------------\n";
+	$jugador->{'sueldo_completo'}=$sueldo_total;
+	print "Jugador " . %$jugador{'nombre'} . "\n";
+	print "nivel: $nivel, goles: $goles / $goles_minimos = $alcance_bono \n";
+	print "bono: $bono\n";
+	print "sueldo total $sueldo + $bono_total";
+	print "-----------------\n";
 
 }
 # Lo enviamos a STDOUT
