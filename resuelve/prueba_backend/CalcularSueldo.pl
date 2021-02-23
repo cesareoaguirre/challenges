@@ -21,20 +21,21 @@
 #
 use JSON;
 use Data::Dumper;
-
+#
+# Rutina de apoyo 
+sub max ($$) { $_[$_[0] < $_[1]]}
+sub min ($$) { $_[$_[0] > $_[1]]}
+#
 # Nuestra fuente de datos es pasada por STDIN (el .pl puede ser llamado por otro módulo).
 # .
 $input = ( $/ );
 #$input =~ s/^\s+$//;
 $json = JSON->new->allow_nonref;
-print "'$input'\n";
 if ( $input eq ""){
 	print "no se incluyó ningún dato json con los goles de los jugadores\n";
 	exit ;
 }
-
 $json_txt = do { local $/; <> };
-
 $json_obj = decode_json( $json_txt );
 #
 # Los niveles de goles al mes. Aclarar que este es el mejor escenario y pasar un nivel inexistente provocará falla en el script en tiempo de ejecución.
@@ -44,25 +45,44 @@ $NIVELES ={
 	C=>15,
 	Cuauh=>20,
 };
-# Iteramos en cada jugador y asignamos su sueldo total y sus goles mínimos.
+#
+#
+# Obtenemos los goles y los mínimos globales
+$goles_minimos = 0;
+$goles = 0;
 for my $jugador ( @$json_obj ) {
 	my $nivel= %$jugador{'nivel'};
-	my $goles_minimos= %$NIVELES{ $nivel };
-	my $goles = %$jugador{'goles'}; 
-	my $alcance_bono= $goles / $goles_minimos;
- 	my $sueldo= %$jugador{'sueldo'};
-	my $bono=  %$jugador{'bono'};
-	my $bono_total= $bono * $alcance_bono; 
-	my $sueldo_total= $sueldo + $bono;
-	$jugador->{'goles_minimos'}=$goles_minimos;
-	$jugador->{'sueldo_completo'}=$sueldo_total;
-	print "Jugador " . %$jugador{'nombre'} . "\n";
-	print "nivel: $nivel, goles: $goles / $goles_minimos = $alcance_bono \n";
-	print "bono: $bono\n";
-	print "sueldo total $sueldo + $bono_total";
-	print "-----------------\n";
-
+	my $goles_minimos_jugador = %$NIVELES{ $nivel };
+	my $goles_jugador = %$jugador{'goles'}; 
+	$jugador->{'goles_minimos'} = $goles_minimos_jugador;
+	$jugador->{'alcance'} = min( 1, $goles_jugador / $goles_minimos_jugador );
+	#print "Jugador  " . %$jugador{'nombre'} . " de nivel: $nivel, goles: $goles_jugador / $goles_minimos_jugador = ". %$jugador{'alcance'} ." \n";
+	$goles_minimos += $goles_minimos_jugador;
+	$goles += $goles_jugador;
 }
+my $alcance_equipo= min( 1, $goles / $goles_minimos );
+#print "Global de goles: $goles / $goles_minimos = $alcance_equipo \n";
+#
+# calculamos el sueldo de cada jugador
+for my $jugador ( @$json_obj ) {
+	my $nivel= %$jugador{'nivel'};
+	my $goles_minimos_jugador = %$NIVELES{ $nivel };
+	my $goles_jugador = %$jugador{'goles'}; 
+ 	my $sueldo_jugador= %$jugador{'sueldo'};
+	my $bono_jugador = %$jugador{'bono'};
+	my $alcance_jugador = %$jugador{'alcance'};
+	my $alcance_completo_jugador = ( $alcance_equipo + $alcance_jugador )/2;
+	my $bono_total= $bono_jugador * $alcance_completo_jugador; 
+	my $sueldo_total= sprintf("%.2f", $sueldo_jugador + $bono_total );
+	$jugador->{'sueldo_completo'}=$sueldo_total;
+	#print "Jugador " . %$jugador{'nombre'} . "\n";
+	#print "	alcance completo del jugador $alcance_completo_jugador\n";
+	#print "	bono: $bono_jugador * $alcance_completo_jugador\n";
+	#print "	sueldo total $sueldo_jugador + $bono_total";
+	#print "	-----------------\n";
+	delete %$jugador{'alcance'};
+}
+#
 # Lo enviamos a STDOUT
 $salida= $json->pretty->encode( $json_obj );
 print STDOUT $salida;
