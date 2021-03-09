@@ -1,4 +1,6 @@
-No requiere dependencias especiales:
+No requiere dependencias especiales, salvo que ocupen de las pruebas unitarias:
+
+	apt install phpunit
 
 
 MODO DE USO
