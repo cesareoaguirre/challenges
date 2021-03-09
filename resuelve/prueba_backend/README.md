@@ -1,18 +1,7 @@
-Es necesario instalar un par de dependencias:
-
-Linux:
-
-	sudo cpanm Data::Dumper
-	sudo cpanm JSON
+Esta prueba fue realizada primero en junio mediante lenguaje Perl con posibilidad de ser un script que se llame desde CLI o como intermedio dentro de un proceso mayor.
 
 
-Este script se puede ejecutar desde terminal Linux como
-
-	cat json.txt | perl CalcularSueldo.pl
-
-Terminal de Windows como
-
-	type .\json.txt | perl .\CalcularSueldo.pl
+En días recientes revisé el código y actualicé información de acuerdo a una revisión que hicimos en un grupo con el fin de que cada quién hiciera su código en el lenguaje de preferencia. Yo tenía un par de errores al no considerar ciertos valores globales.
 
 
-Siendo json.txt la entrada de los goles de los jugadores y obtiene como resultado la salida de los sueldos calculados.
+También ahora en 2021 incluyo la realización mediante un PHP orientado a objetos con la posibilidad de ser un módulo de apoyo dentro de uno mayor.
